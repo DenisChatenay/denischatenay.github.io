@@ -1,0 +1,67 @@
+==================================================================
+https://keybase.io/denischatenay
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://www.chatenay.me
+  * I am denischatenay (https://keybase.io/denischatenay) on keybase.
+  * I have a public key with fingerprint 9AC5 227B 755F 55BE 3F40  AD3D 5E7C 40A3 2223 98A4
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "9ac5227b755f55be3f40ad3d5e7c40a3222398a4",
+            "host": "keybase.io",
+            "key_id": "5e7c40a3222398a4",
+            "kid": "010117c80f9e742f456fee8953d2dac7c8e40b5d12a4fedb7b6ac6170a20ff0b0f290a",
+            "uid": "a200219795177703cbeb3f9c9a909819",
+            "username": "denischatenay"
+        },
+        "service": {
+            "hostname": "www.chatenay.me",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1439121236,
+    "expire_in": 157680000,
+    "prev": "66c219a76cb653f545ecd398a95f2eb659f4628c448698695ece2739967ff361",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.34
+Comment: https://keybase.io/crypto
+
+yMIcAnicbZJbSBVBGMfPyUy0gjBCw3xoSqmww+7szu7OMbs8RPrQzTRCs9Ps7Ixu
+5u7xnD2e5CQVQT0kgRJEERV0D7R6KCIy0kwNo6AoMYqsMKKHgrALYZdZybeWgZ39
+/3/ff+f7mN6ZaYGs4Im8Qbz6XicIDnaXJgKV/SsqUsB0rWYQToF6NvHitlPLYtGY
+7XggDDChCELd1BHiCJlM4apELMVCTKdip0AIFWwQFRSBOjfuV4gYk8RZyHaFJj4i
+tiXU//D1E4YkS7KsU0PimOkq5CrSOGMGRooFLUKFw1TJRJYMicqZZeqmRqgm6xKB
+EueSKXGIJSLiEhNxQpWgjHWMZF3XJYWazFQ4pphgCRsy9sE4izmkgQnaYo4dp3XE
+Yw5pBi1FQFhNNmX+HPx2/mHJZDI0SYWEUgSiMddzqbtTmHWeFw37tV5zdAJmZuRf
+TMS0HUuMUxQ0sVjcdh0QlgVJPdvPlVUFy1CGilYE2K6oHWMR2yeQrhmSePzfsCYR
+qWlU9ER0jZoaUjhSEaOWP0aMOGRCw1zVoEFV1dCwWMJmUFcw1nTOFU0GfmONjgvC
+ijgmqRWRcbvWIV4ixkBLz92tUwPBrMC09Cn+hQhkZc6avCZXXmX8qY6mlu3tpOhY
+gJz8ndKWftk55xDLOH5q4XBa1cH96z8apPVNdfqMD9uS5dmd/W48f95I6c/vL888
+WXHgekf8qNGiqisH+gc+daSv3dF2fMm6zWX987fPzthQU/2ssP1r47UHZ4LlVd+y
+eMv48qvd5wpKnOkXbp7dcDERye75vL9r8e6KvdrcVVvA6rKmdySnsKTmV/7rwfBI
+iP4+pdzKoI//5DZW7jk/1jvktQemzVh+5/C+kRx1uHxs6FLuovHs2JHLfXlTQ4UF
+Zvjpmtah3tPH6InnIy9QzYFNjxLgR2apbXwaG3rYAEfvF58ebsPB3tTGG2tuv19Q
+nNfq9O1Jvh3t+guDeCYM
+=N/MB
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/denischatenay
+
+==================================================================
