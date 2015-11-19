@@ -4,12 +4,16 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I currently work as system engineer at ITG RFQ-hub, small financial software company from Paris, recently acquired by ITG.
+**And I am looking a for a job at Montreal (Canada)**
+
+My resume is available on [linkedin](https://www.linkedin.com/in/denischatenay).
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+I have been working with both OS GNU/Linux and OS Windows for several years now.
+I really enjoy working with open source softwares allowing automation, high availability... That's why I support Framasoft, La Quadradture du Net, LinuxFR.org and many others...
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+Please contact me at this email : [!email](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/email.png)
