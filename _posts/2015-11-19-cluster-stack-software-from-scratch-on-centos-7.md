@@ -18,13 +18,17 @@ For that, we are going to use a cluster stack including two open source software
 
 The following diagram represents the communication process and shows how the cluster stack software fits between the service layers :
 
+<p align="center">
 ![cluster_stack_diagram](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/posts/cluster/cluster_stack_diagram.png)
+</p>
 
 ## 2. Goal
 
 When completed, you will have this infrastructure, or something like that (I hope !) :
 
+<p align="center">
 ![cluster_stack_infrastructure](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/posts/cluster/cluster_stack_infrastructure.png)
+</p>
 
 ## 3. Preparing the servers
 
