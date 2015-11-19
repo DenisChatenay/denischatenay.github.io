@@ -18,4 +18,4 @@ I really enjoy working with open source softwares allowing automation, high avai
 
 ### Contact me
 
-Please contact me at this email : ![email](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/email.png)e
+Please contact me at this email : ![email](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/email.png)
