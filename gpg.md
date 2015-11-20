@@ -88,4 +88,4 @@ Qa/jwn1GHG83MHSGzLiJnCG5pLrsc/LhAsPULqUzHFe7U9QJdfW2yyy3nF3rOhnD
 
 ### Contact me
 
-Please contact me at this email : ![email]({{ site.baseurl }}/images/email.png)
+Please contact me at this email : ![email](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/email.png)
