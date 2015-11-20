@@ -54,11 +54,11 @@ Well now that we have connected and powered on all cluster nodes.
 
 We can start with the network configuration, for that edit on each cluster node these files :
 
-```bash
+```
 /etc/sysconfig/network-scripts/ifcfg-enoXXXX
 ```
 
-```bash
+```
 TYPE=Ethernet
 BOOTPROTO=none
 DEFROUTE=yes
@@ -84,8 +84,8 @@ NM_CONTROLLED=no
 
 When we have completed all those tasks, we should be able to ping each cluster node :
 
-```bash
-[denis@node1 ~]# ping 192.168.88.20 -c4
+```
+[root@node1 ~]# ping 192.168.88.20 -c4
 
 PING 192.168.88.20 (192.168.88.20) 56(84) bytes of data.
 64 bytes from 192.168.88.20: icmp_seq=1 ttl=64 time=0.223 ms
@@ -104,14 +104,14 @@ It's an important step, our cluster nodes must always be synchronized.
 
 We can install the NTPD package :
 
-```bash
-[denis@node1 ~]# yum install ntpd -y
+```
+[root@node1 ~]# yum install ntpd -y
 ```
 
 By default, NTP uses the following servers :
 
-```bash
-[denis@node1 ~]# cat /etc/ntp.conf | grep "server"
+```
+[root@node1 ~]# cat /etc/ntp.conf | grep "server"
 # Use public servers from the pool.ntp.org project.
 server 0.centos.pool.ntp.org iburst
 server 1.centos.pool.ntp.org iburst
@@ -123,8 +123,8 @@ Instead of them I recommend using nearest ones of our location, check this websi
 
 Then, make sure that the NTP service starts at boot :
 
-```bash
-systemctl enable ntpd
+```
+[root@node1 ~]# systemctl enable ntpd
 ```
 
 Repeat that and install/start the NTP service on all cluster nodes.
@@ -135,8 +135,8 @@ In my lab, I use two DNS servers, one primary and another one backup.
 
 Configure them on each cluster node :
 
-```bash
-[denis@node1 ~]# cat /etc/resolv.conf
+```
+[root@node1 ~]# cat /etc/resolv.conf
 nameserver 192.168.147.101
 nameserver 192.168.147.102
 search centos.local
@@ -144,15 +144,15 @@ search centos.local
 
 Next, edit the FQDN hostname server :
 
-```bash
-[denis@node1 ~]# cat /etc/hostname
+```
+[root@node1 ~]# cat /etc/hostname
 node1.centos.local
 ```
 
 If you don't use DNS servers, just edit `/etc/hosts` and add all private IPs like that :
 
-```bash
-[denis@node1 ~]# cat /etc/hosts
+```
+[root@node1 ~]# cat /etc/hosts
 127.0.0.1       localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1             localhost localhost.localdomain localhost6 localhost6.localdomain6
 192.168.88.10   node1.centos.local node1
@@ -165,8 +165,8 @@ If you don't use DNS servers, just edit `/etc/hosts` and add all private IPs lik
 
 To finish, check the connectivity among the cluster nodes :
 
-```bash
-[denis@node1 ~]# ping node2.centos.local -c4
+```
+[root@node1 ~]# ping node2.centos.local -c4
 PING node2.centos.local (192.168.88.20) 56(84) bytes of data.
 64 bytes from node2.centos.local (192.168.88.20): icmp_seq=1 ttl=64 time=0.205 ms
 64 bytes from node2.centos.local (192.168.88.20): icmp_seq=2 ttl=64 time=0.280 ms
@@ -186,17 +186,17 @@ By default, Corosync cluster communication ports are `5404` and `5405` (UDP prot
 
 So we must allow the corosync traffic among the cluster nodes, for that we will add two rules to allow UDP traffic on `5404` and `5405` ports :
 
-```bash
-[denis@node1 ~]# firewall-cmd --permanent --add-port=5404/udp
+```
+[root@node1 ~]# firewall-cmd --permanent --add-port=5404/udp
 success
-[denis@node1 ~]# firewall-cmd --permanent --add-port=5405/udp
+[root@node1 ~]# firewall-cmd --permanent --add-port=5405/udp
 success
 ```
 
 Moreover, do not forget to reload the firewall configuration :
 
-```bash
-[denis@node1 ~]# firewall-cmd --reload
+```
+[root@node1 ~]# firewall-cmd --reload
 success
 ```
 
@@ -204,17 +204,17 @@ success
 
 Then, install the corosync package on all cluser nodes and start it at the boot :
 
-```bash
-[denis@node1 ~]# yum install corosync -y
-[denis@node1 ~]# systemctl enable corosync
+```
+[root@node1 ~]# yum install corosync -y
+[root@node1 ~]# systemctl enable corosync
 ```
 
 ### 4.3 Generate an encryption key
 
 After that, generate an encryption key which encrypts cluster communication traffic :
 
-```bash
-[denis@node1 ~]# corosync-keygen
+```
+[root@node1 ~]# corosync-keygen
 Gathering 1024 bits for key from /dev/random.
 Press keys on your keyboard to generate entropy.
 Press keys on your keyboard to generate entropy (bits = 152).
@@ -236,27 +236,34 @@ Writing corosync key to /etc/corosync/authkey.
 
 We can accelerate the key generation process, using this command inside another terminal :
 
-```bash
-[denis@node1 ~]# dd if=/dev/urandom of=output.txt
+```
+[root@node1 ~]# dd if=/dev/urandom of=output.txt
 ```
 
 When the key is generated, stop the dd comand and remove the file `output.txt`.
 
-```bash
-[denis@node1 ~]# rm output.txt
+```
+[root@node1 ~]# rm output.txt
+```
+
+And it's an important step, by default only root can read the authentication key, just to be sure type the following commands :
+
+```
+[root@node1 ~]# chown root:root /etc/corosync/authkey
+[root@node1 ~]# chmod 400 /etc/corosync/authkey
 ```
 
 ### 4.4 Configure Corosync
 
 Create the corosync configuration file by copying it from the sample one :
 
-```bash
-[denis@node1 ~]# cp /etc/corosync/corosync.conf.example /etc/corosync/corosync.conf
+```
+[root@node1 ~]# cp /etc/corosync/corosync.conf.example /etc/corosync/corosync.conf
 ```
 
 Edit it like that :
 
-```bash
+```
 totem {
         version: 2
         crypto_cipher: aes256
@@ -321,11 +328,11 @@ Let's explain at the following terms :
 
 After that copy the authentication key and the configuration file to all other nodes via SSH :
 
-```bash
-[denis@node1 ~]# scp /etc/corosync/corosync.conf node2:/etc/corosync
-[denis@node1 ~]# scp /etc/corosync/corosync.conf node3:/etc/corosync
-[denis@node1 ~]# scp /etc/corosync/authkey node2:/etc/corosync
-[denis@node1 ~]# scp /etc/corosync/authkey node2:/etc/corosync
+```
+[root@node1 ~]# scp /etc/corosync/corosync.conf node2:/etc/corosync
+[root@node1 ~]# scp /etc/corosync/corosync.conf node3:/etc/corosync
+[root@node1 ~]# scp /etc/corosync/authkey node2:/etc/corosync
+[root@node1 ~]# scp /etc/corosync/authkey node2:/etc/corosync
 ```
 
 Do not forget, we must change the `bindnetaddr` parameter to the IP address of each cluster node.
@@ -334,14 +341,14 @@ Do not forget, we must change the `bindnetaddr` parameter to the IP address of e
 
 To finish, start the corosync service on all our cluster nodes :
 
-```bash
-[denis@node1 ~]# systemctl start corosync
+```
+[root@node1 ~]# systemctl start corosync
 ```
 
 Check the corosync membership status :
 
-```bash
-[denis@node1 ~]# corosync-cmapctl | grep members
+```
+[root@node1 ~]# corosync-cmapctl | grep members
 runtime.totem.pg.mrp.srp.members.1.config_version (u64) = 0
 runtime.totem.pg.mrp.srp.members.1.ip (str) = r(0) ip(192.168.88.10)
 runtime.totem.pg.mrp.srp.members.1.join_count (u32) = 1
@@ -358,8 +365,8 @@ runtime.totem.pg.mrp.srp.members.3.status (str) = joined
 
 Continue and check the quorum now :
 
-```bash
-[denis@node1 ~]# corosync-quorumtool
+```
+[root@node1 ~]# corosync-quorumtool
 Quorum information
 ------------------
 Date:             Thu Nov  5 17:54:12 2015
@@ -397,8 +404,8 @@ As we can see on the previous output, there are different sections :
 
 Backup the working corosync configuration file, we will need it later on :
 
-```bash
-[denis@node1 ~]# cp /etc/corosync/corosync.conf /etc/corosync/corosync.conf.bak
+```
+[root@node1 ~]# cp /etc/corosync/corosync.conf /etc/corosync/corosync.conf.bak
 ```
 
 ## 5. Installing and configuring Pacemaker
@@ -409,15 +416,15 @@ Now, we can install the cluster management layer.
 
 Like Corosync, we must add a firewall rule to allow Pacemaker traffic, by default using TCP port `2224`.
 
-```bash
-[denis@node1 ~]# firewall-cmd --permanent --add-port=2224/udp
+```
+[root@node1 ~]# firewall-cmd --permanent --add-port=2224/udp
 success
 ```
 
 Moreover, do not forget to reload the firewall configuration :
 
-```bash
-[denis@node1 ~]# firewall-cmd --reload
+```
+[root@node1 ~]# firewall-cmd --reload
 success
 ```
 
@@ -426,9 +433,9 @@ success
 
 Then, install the Pacemaker package and start it at boot :
 
-```bash
-[denis@node1 ~]# yum install pacemaker -y
-[denis@node1 ~]# systemctl enable pacemaker
+```
+[root@node1 ~]# yum install pacemaker -y
+[root@node1 ~]# systemctl enable pacemaker
 ```
 
 ### 5.3 Install and enable PCS at the boot
@@ -438,9 +445,9 @@ Then, install the Pacemaker package and start it at boot :
 The package is already installed with Pacemaker.
 So we have just to enable it:
 
-```bash
-[denis@node1 ~]# systemctl start pcsd
-[denis@node1 ~]# systemctl enable pcsd
+```
+[root@node1 ~]# systemctl start pcsd
+[root@node1 ~]# systemctl enable pcsd
 ```
 
 Do not forget to do that among all cluster nodes.
@@ -450,8 +457,8 @@ Do not forget to do that among all cluster nodes.
 `hacluster` user is used to authenticate the `PCS` daemon across the cluster nodes.
 Choose a consistent password, the same for each node.
 
-```bash
-[denis@node1 ~]# passwd hacluster
+```
+[root@node1 ~]# passwd hacluster
 Changing password for user hacluster
 New password:
 Retype new password:
@@ -464,8 +471,8 @@ It must be set on all cluster nodes
 
 To authenticate the `PCS` deamon across the cluster nodes, use this command :
 
-```bash
-[denis@node1 ~]# pcs cluster auth 192.168.88.10 192.168.88.20 192.168.88.30
+```
+[root@node1 ~]# pcs cluster auth 192.168.88.10 192.168.88.20 192.168.88.30
 Username: hacluster
 Password:
 192.168.88.10: Authorized
@@ -477,8 +484,8 @@ Password:
 
 For the first time, we need to set up the cluster with this command :
 
-```bash
-[denis@node1 ~]# pcs cluster setup --name hacluster 192.168.88.10 192.168.88.20 192.168.88.30 --force
+```
+[root@node1 ~]# pcs cluster setup --name hacluster 192.168.88.10 192.168.88.20 192.168.88.30 --force
 Shutting down pacemaker/corosync services...
 Redirecting to /bin/systemctl stop pacemaker.service
 Redirecting to /bin/systemctl stop corosync.service
@@ -494,16 +501,16 @@ Because this file existed already, we have to use the `--force` parameter.
 
 Then, overwrite the new Corosync configuration file with the one saved previously.
 
-```bash
-[denis@node1 ~]# cp /etc/corosync/corosync.conf.bak /etc/corosync/corosync.conf
+```
+[root@node1 ~]# cp /etc/corosync/corosync.conf.bak /etc/corosync/corosync.conf
 cp: overwrite '/etc/corosync/corosync.conf'? y
 ```
 
 Next, distribute this file across the other cluster nodes :
 
-```bash
-[denis@node1 ~]# scp /etc/corosync/corosync.conf node2:/etc/corosync/corosync.conf
-[denis@node1 ~]# scp /etc/corosync/corosync.conf node3:/etc/corosync/corosync.conf
+```
+[root@node1 ~]# scp /etc/corosync/corosync.conf node2:/etc/corosync/corosync.conf
+[root@node1 ~]# scp /etc/corosync/corosync.conf node3:/etc/corosync/corosync.conf
 ```
 
 Moreover, do not forget to change the `bindnetaddr`parameter on each cluster node.
@@ -512,8 +519,8 @@ Moreover, do not forget to change the `bindnetaddr`parameter on each cluster nod
 
 Finally, start the cluster on all the cluster nodes by using this single command :
 
-```bash
-[denis@node1 ~]# pcs cluster start --all
+```
+[root@node1 ~]# pcs cluster start --all
 192.168.88.10: Starting Cluster...
 192.168.88.20: Starting Cluster...
 192.168.88.30: Starting Cluster...
@@ -521,8 +528,8 @@ Finally, start the cluster on all the cluster nodes by using this single command
 
 And check the cluster status :
 
-```bash
-[denis@node1 ~]# pcs status
+```
+[root@node1 ~]# pcs status
 Cluster name:
 WARNING: no stonith devices and stonith-enabled is not false
 Last updated: Sun Nov 15 20:51:28 2015          
@@ -560,46 +567,46 @@ This is a cluster node fencing feature enabled by default.
 
 We disable it for the moment, and get back to it later on :
 
-```bash
-[denis@node1 ~]# pcs property set stonith-enabled=false
+```
+[root@node1 ~]# pcs property set stonith-enabled=false
 ```
 
 Then, we can validate our cluster configuration with the command "crm_verify" :
 
-```bash
-[denis@node1 ~]# crm_verify -L -V
+```
+[root@node1 ~]# crm_verify -L -V
 ```
 
 ### 6.2 Configure a resource
 
 To create a new resource on our new cluster, we use the `PCS` shell :
 
-```bash
-[denis@node1 ~]# pcs resource create --help
+```
+[root@node1 ~]# pcs resource create --help
 ```
 
 We add a cluster IP resource and bind it to the network interface `eno16777736` (to change according your network configuration) :
 
-```bash
-[denis@node1 ~]# pcs resource create ClusterIP ocf:heartbeat:IPaddr2 ip=192.168.88.100 cidr_netmask=24 nic=eno16777736
+```
+[root@node1 ~]# pcs resource create ClusterIP ocf:heartbeat:IPaddr2 ip=192.168.88.100 cidr_netmask=24 nic=eno16777736
 ```
 
 We continue by adding an Apache web server cluster resource. But before, apache must be installed on each cluster nodes.
 
-```bash
-[denis@node1 ~]# yum install httpd -y
+```
+[root@node1 ~]# yum install httpd -y
 ```
 
  Next we can add the resource with the following command :
 
-```bash
-[denis@node1 ~]# pcs resource create WebServer ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf
+```
+[root@node1 ~]# pcs resource create WebServer ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf
 ```
 
 Now we can check the status of our Pacemaker cluster :
 
-```bash
-[denis@node1 ~]# pcs status
+```
+[root@node1 ~]# pcs status
 Cluster name:
 Last updated: Mon Nov 16 17:46:46 2015
 Last change: Sun Nov 15 16:51:43 2015 by hacluster via crmd on node3.centos.local
@@ -629,8 +636,8 @@ As we can see, under the full list of resources section, we have our two ones `C
 
 We can list only all cluster resources configured, using this command :
 
-```bash
-[denis@node1 ~]# pcs resource show
+```
+[root@node1 ~]# pcs resource show
 ```
 
 ### 6.3 Configure a resource constraint
@@ -638,27 +645,27 @@ We can list only all cluster resources configured, using this command :
 A resource constraint can be configured in three different ways :
 
 * **Location constraint :** if we want a resource running on a specific cluster node.
-```bash
-[denis@node1 ~]# pcs constraint location --help
+```
+[root@node1 ~]# pcs constraint location --help
 ```
 * **Order constraint :** if we want to configure the start and stop order for our resources.
-```bash
-[denis@node1 ~]# pcs constraint order --help
+```
+[root@node1 ~]# pcs constraint order --help
 ```
 * **Colocation constraint :** if we want to create a cluster group and running it on the same cluster node.
-```bash
-[denis@node1 ~]# pcs constraint colocation --help
+```
+[root@node1 ~]# pcs constraint colocation --help
 ```
 
 We create a new colocation constraint with our two resources previously created :
 
-```bash
-[denis@node1 ~]# pcs constraint colocation add ClusterIP WebServer
+```
+[root@node1 ~]# pcs constraint colocation add ClusterIP WebServer
 ```
 
 Now if we check the status of our cluster, we can see both cluster resources `ClusterIP` and `WebServer` are running on the same node `node1.centos.local` :
 
-```bash
+```
 Full list of resources:
 
      ClusterIP  (ocf::heartbeat:IPaddr2):       Started node1.centos.local
@@ -667,14 +674,14 @@ Full list of resources:
 
 Then, we add a constraint order to start the `ClusterIP` before the `WebServer` resource :
 
-```bash
-[denis@node1 ~]# pcs constraint order set ClusterIP WebServer
+```
+[root@node1 ~]# pcs constraint order set ClusterIP WebServer
 ```
 
 Show all constraints configured with this command :
 
-```bash
-[denis@node1 ~]# pcs constraint show
+```
+[root@node1 ~]# pcs constraint show
 Location Constraints:
 Ordering Constraints:
   Resource Sets:
@@ -687,13 +694,13 @@ Colocation Constraints:
 
 To simplify the management of our resources, we can create a resources group :
 
-```bash
-[denis@node1 ~]# pcs resource group add WebSite ClusterIP WebServer
+```
+[root@node1 ~]# pcs resource group add WebSite ClusterIP WebServer
 ```
 
 And display the status of our cluster :
 
-```bash
+```
 Full list of resources:
 
  Resource Group: WebSite
@@ -705,11 +712,11 @@ Full list of resources:
 
 We can move our resources group previously created :
 
-```bash
-[denis@node1 ~]# pcs resource move WebSite node3.centos.local
+```
+[root@node1 ~]# pcs resource move WebSite node3.centos.local
 ```
 
-```bash
+```
 Full list of resources:
 
  Resource Group: WebSite
@@ -721,11 +728,11 @@ Full list of resources:
 
 To stop a resource :
 
-```bash
-[denis@node1 ~]# pcs resource disable WebSite
+```
+[root@node1 ~]# pcs resource disable WebSite
 ```
 
-```bash
+```
 Full list of resources:
 
  Resource Group: WebSite
@@ -737,11 +744,11 @@ Full list of resources:
 
 To start a resource :
 
-```bash
-[denis@node1 ~]# pcs resource enable WebSite
+```
+[root@node1 ~]# pcs resource enable WebSite
 ```
 
-```bash
+```
 Full list of resources:
 
  Resource Group: WebSite
@@ -753,8 +760,8 @@ Full list of resources:
 
 When we want to prevent a cluster resource from running on a specific cluster node, we can ban our resources group from node1.centos.local for example :
 
-```bash
-[denis@node1 ~]# pcs resource ban WebSite node1.centos.local
+```
+[root@node1 ~]# pcs resource ban WebSite node1.centos.local
 ```
 
 ### 6.9 Clear a resource constraint
@@ -763,8 +770,8 @@ When we moved a cluster resource to another cluster node, a location constraint 
 
 To clear it :
 
-```bash
-[denis@node1 ~]# pcs resource clear WebSite node1.centos.local
+```
+[root@node1 ~]# pcs resource clear WebSite node1.centos.local
 ```
 
 ### 6.10 Remove a resource constraint
@@ -773,20 +780,20 @@ To remove a resource constraint, use the following commands.
 
 * **colocation :**
 
-```bash
-[denis@node1 ~]# pcs constraint colocation remove WebServer ClusterIP
+```
+[root@node1 ~]# pcs constraint colocation remove WebServer ClusterIP
 ```
 
 * **order :**
 
-```bash
-[denis@node1 ~]# pcs constraint remove order WebServer ClusterIP
+```
+[root@node1 ~]# pcs constraint remove order WebServer ClusterIP
 ```
 
 Now there are no constraints configured :
 
-```bash
-[denis@node1 ~]# pcs constraint show
+```
+[root@node1 ~]# pcs constraint show
 Location Constraints:
 Ordering Constraints:
 Colocation Constraints:
@@ -796,23 +803,23 @@ Colocation Constraints:
 
 For example, we can remove the group previously created `WebSite` :
 
-```bash
-[denis@node1 ~]# pcs resource group remove WebSite
+```
+[root@node1 ~]# pcs resource group remove WebSite
 ```
 
 ### 6.12 Remove a resource
 
 To remove a resource :
 
-```bash
-[denis@node1 ~]# pcs resource delete ClusterIP
-[denis@node1 ~]# pcs resource delete WebServer
+```
+[root@node1 ~]# pcs resource delete ClusterIP
+[root@node1 ~]# pcs resource delete WebServer
 ```
 
 Now there are no resources configured :
 
-```bash
-[denis@node1 ~]# pcs resource show
+```
+[root@node1 ~]# pcs resource show
 NO resources configured
 ```
 
@@ -834,33 +841,41 @@ How add a new cluster node to our running cluster configuration, just stick with
 * Allow the Corosync traffic through the firewall
 * Install the Corosync package
 * Copy the `corosync.conf` configuration file and the `authkey` authentication key from our running configuration to the new node
-```bash
-[denis@node1 ~]# scp /etc/corosync/corosync.conf node4:/etc/corosync/
-[denis@node1 ~]# scp /etc/corosync/authkey node4:/etc/corosync/
+
 ```
+[root@node1 ~]# scp /etc/corosync/corosync.conf node4:/etc/corosync/
+[root@node1 ~]# scp /etc/corosync/authkey node4:/etc/corosync/
+```
+
 * Edit the Corosync configuration file on the new cluster node and change the `bindnetaddr` parameter with the IP address assigned to this new node. Moreover, add the new node to the `nodelist` section on all cluster nodes
 * Start the Corosync service on the new node
-```bash
-[denis@node1 ~]# systemctl start corosync
+
+```
+[root@node1 ~]# systemctl start corosync
 ```
 
 #### 7.1.3 Install and configure Pacemaker
 
 * Install and start `Pacemaker` and `PCS` on the new node
 * Change the password for the `hacluster` user
-```bash
-[denis@node4 ~]# passwd hacluster
+
 ```
+[root@node4 ~]# passwd hacluster
+```
+
 * Authenticate the new node's pcs deamon among all cluster nodes, repeat on each node
-```bash
-[denis@node1 ~]# pcs cluster auth 192.168.88.40
+
+```
+[root@node1 ~]# pcs cluster auth 192.168.88.40
 Username: hacluster
 Password:
 192.168.88.40: Authorized
 ```
+
 * Check the cluster status
-```bash
-[denis@node1 ~]# pcs status
+
+```
+[root@node1 ~]# pcs status
 Cluster name:
 Last updated: Tue Nov 17 10:59:35 2015          
 Last change: Mon Nov 16 15:15:47                                      2015 by hacluster via crmd on node3.centos.local
@@ -899,13 +914,14 @@ This is useful for maintenance operations.
 
 We can put a cluster node into `standby` mode :
 
-```bash
-[denis@node1 ~] pcs cluster standby node4.centos.local
+```
+[root@node1 ~] pcs cluster standby node4.centos.local
 ```
 
 As we can see the node `node4.centos.local` is in a `standby` mode :
-```bash
-[denis@node1 ~]# pcs status
+
+```
+[root@node1 ~]# pcs status
 Cluster name:
 Last updated: Tue Nov 17 11:10:22 2015          
 Last change: Mon Nov 16 15:15:47                                      2015 by hacluster via crmd on node3.centos.local
@@ -936,13 +952,13 @@ Daemon Status:
 
 Now we want to get out of `standby` this node with the following command :
 
-```bash
-[denis@node1 ~] pcs cluster unstandby node4.centos.local
+```
+[root@node1 ~] pcs cluster unstandby node4.centos.local
 ```
 
 And all cluster nodes are online :
 
-```bash
+```
 Online: [ node1.centos.local node2.centos.local node3.centos.local node4.centos.local ]
 ```
 
@@ -954,14 +970,16 @@ This doesn't require a service downtime, except if the cluster service is runnin
 
 * Remove the cluster node from the `nodelist` section in the Corosync configuration file on all cluster nodes
 * Stop the cluster stack software `pcsd`, `Pacemaker`, and `Corosync` on the cluster node we want to remove
-```bash
-[denis@node4 ~]# systemctl stop pcsd
-[denis@node4 ~]# systemctl stop pacemaker
-[denis@node4 ~]# systemctl stop corosync
+
 ```
+[root@node4 ~]# systemctl stop pcsd
+[root@node4 ~]# systemctl stop pacemaker
+[root@node4 ~]# systemctl stop corosync
+```
+
 * Check the cluster status, now as we can see `node4.centos.local` is offline
 
-```bash
+```
 Online: [ node1.centos.local node2.centos.local node3.centos.local ]
 OFFLINE: [ node4.centos.local ]
 ```
@@ -973,8 +991,8 @@ OFFLINE: [ node4.centos.local ]
 We will shutdown the node running our resources.
 First of all, we check which node is, with the following command :
 
-```bash
-[denis@node1 ~]# pcs status
+```
+[root@node1 ~]# pcs status
 Cluster name:
 Last updated: Thu Nov 19 10:15:46 2015          
 Last change: Wed Nov 18 17:51:12 2015 by root via cibadmin on node1.centos.local
@@ -1004,13 +1022,13 @@ Daemon Status:
 
 As we can see, it's `node1.centos.local`, so we shutdown this server.
 
-```bash
-[denis@node1 ~]# shutdown -h now
+```
+[root@node1 ~]# shutdown -h now
 ```
 
 Then, we check again the status of our cluster on another node this time :
 
-```bash
+```
 Online: [ node2.centos.local node3.centos.local ]
 OFFLINE: [ node1.centos.local ]
 
@@ -1028,19 +1046,19 @@ And `node1.centos.local` is offline.
 
 In this second failure test, we will stop the network service on the `node2.centos.local`.
 
-First, we have shutdown `node1.centos.local' in our previous hardware failure, start it again.
+First, we have shutdown `node1.centos.local` in our previous hardware failure, start it again.
 And check which node is running our services, it should be `node2.centos.local`.
 
 Go on this server, and type the following command :
 
-```bash
-[denis@node2 ~]# systemctl stop network
+```
+[root@node2 ~]# systemctl stop network
 ```
 
 Next, verify the cluster status :
 
-```bash
-[denis@node1 ~]# pcs status
+```
+[root@node1 ~]# pcs status
 Cluster name:
 Last updated: Thu Nov 19 10:36:52 2015          
 Last change: Wed Nov 18 17:51:12                                      2015 by root via cibadmin on node1.centos.local
