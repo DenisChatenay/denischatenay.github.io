@@ -19,7 +19,7 @@ For that, we are going to use a cluster stack including two open source software
 The following diagram represents the communication process and shows how the cluster stack software fits between the service layers :
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/posts/cluster/cluster_stack_diagram.png" alt="cluster_stack_diagram" />
+  <img src="{{ site.baseurl }}/images/posts/cluster/cluster_stack_diagram.png" alt="cluster_stack_diagram" />
 </p>
 
 ## 2. Goal
@@ -27,7 +27,7 @@ The following diagram represents the communication process and shows how the clu
 When completed, you will have this infrastructure, or something like that (I hope !) :
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/images/posts/cluster/cluster_stack_infrastructure.png" alt="cluster_stack_infrastructure" />
+  <img src="{{ site.baseurl }}/images/posts/cluster/cluster_stack_infrastructure.png" alt="cluster_stack_infrastructure" />
 </p>
 
 ## 3. Preparing the servers
