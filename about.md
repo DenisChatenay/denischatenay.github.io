@@ -8,7 +8,7 @@ I currently work as system engineer at ITG RFQ-hub, small financial software com
 
 **And I am looking a for a job at Montreal (Canada)**
 
-My resume is available in a [PDF file](https://raw.githubusercontent.com/denischatenay/denischatenay.github.io/master/cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
+My resume is available in a [PDF file](https://blog.chatenay.me/cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
 
 ### More Information
 
