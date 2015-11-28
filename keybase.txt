@@ -6,25 +6,20 @@ I hereby claim:
 
   * I am an admin of https://blog.chatenay.me
   * I am denischatenay (https://keybase.io/denischatenay) on keybase.
-  * I have a public key with fingerprint 9AC5 227B 755F 55BE 3F40  AD3D 5E7C 40A3 2223 98A4
+  * I have a public key with fingerprint D21E F005 5985 4CA6 DC8E  3985 6A43 4C0D 31F8 08AA
 
 To do so, I am signing this object:
 
 {
     "body": {
         "key": {
-            "eldest_kid": "010117c80f9e742f456fee8953d2dac7c8e40b5d12a4fedb7b6ac6170a20ff0b0f290a",
-            "fingerprint": "9ac5227b755f55be3f40ad3d5e7c40a3222398a4",
+            "eldest_kid": "0101574a45051cfb9b50667a0a554c9d2a583863962582ad805725da6985b19fe8220a",
+            "fingerprint": "d21ef00559854ca6dc8e39856a434c0d31f808aa",
             "host": "keybase.io",
-            "key_id": "5e7c40a3222398a4",
-            "kid": "010117c80f9e742f456fee8953d2dac7c8e40b5d12a4fedb7b6ac6170a20ff0b0f290a",
+            "key_id": "6a434c0d31f808aa",
+            "kid": "0101574a45051cfb9b50667a0a554c9d2a583863962582ad805725da6985b19fe8220a",
             "uid": "a200219795177703cbeb3f9c9a909819",
             "username": "denischatenay"
-        },
-        "revoke": {
-            "sig_ids": [
-                "fbe126105a089f6d0d57dc5f0de23b06f23486b3ea321d1d8775252e08d692280f"
-            ]
         },
         "service": {
             "hostname": "blog.chatenay.me",
@@ -33,38 +28,41 @@ To do so, I am signing this object:
         "type": "web_service_binding",
         "version": 1
     },
-    "ctime": 1448013400,
+    "ctime": 1448734746,
     "expire_in": 157680000,
-    "prev": "029012d40965e47af03212d490e5505099eaf2b916b65f60293d2de9c1d15e20",
-    "seqno": 7,
+    "prev": "c26c231a04d65a754d26360aed6ead18f457419de4164d5c06f23cfe0b0096ec",
+    "seqno": 11,
     "tag": "signature"
 }
 
 which yields the signature:
 
 -----BEGIN PGP MESSAGE-----
-Version: Keybase OpenPGP v2.0.49
-Comment: https://keybase.io/crypto
+Version: GnuPG v1
 
-yMJwAnicrVJNaF1FFH7P2ESfVdqgUNASOkipEsPM3Dt37jxNK5W6kfrTtKXQyOvM
-nTMvl8R7X969SUxiRJsa0m7SRQQX0QpVUAoKNS/FXe3PIomoDU36J+1GujDQZlGC
-QmycG9qdS1czc853vvm+c86FJ+tyhfzEs7Ni1/nvUH72p5We3P437xwYRCrW/ag4
-iDph7YAuDUla6gw1KiJMMCE88LERwF1qXOYZAF8wR1MtA5sBFyumCZWuAa248mTg
-EY4lxcZghQ0VWKJmZMKoDNVKNYxSSytkwCjlijNmGFPgGBdL7WgGPLA3h1LqCF+6
-trAjTrIKK07JBFrC2Mbso7Qm7z/w/7PunjU6G8WUCC4Y4ZxjJ1CgHCMCIQUWPhEZ
-MIFqJN8Di9YQhUnQIVOIZD8aakZV6I07IWtuEpat8gQVDyKjgFCPYCaxL4ynsWZc
-B8xgDdRR2DPUcX1POWDtEU20zzmjjAL2tScotdbQu5bbftsbBmvkWaseSFBdcbnl
-oYQWG2pGlWqcxkHcZbMdaVpJipmytL+SwftAlR4QlVQYaTssW9EL1SSMI1QkFhmk
-YcZMXNfHxHExbkbwfiWsQinMEIx7PsZZtGLdZhOwDSRUu1h4DFwuDbY27FtgYAwz
-LARIQ5UgnvKY8Sw8Gw2IwHplQDHKrHVHMSpyK1OWLaVtXiTTniqgoXNn2x/N5Qu5
-+nWPZEucKzy+4eFqHznRsPrG+atHVqafnsoXJj/7dWbrJ+tH2/K/Xxxf2n2nvTV3
-4HBDUw3XRZ+upy/z6KmvL24eyc/QwYVN0yO1G1MD6aX5t1a63Xe6j+2b2NY4env7
-WG2+vX7zx8v3D3+xcHNuy+cjO5eeeWxyof7o4u2mk391Lo9v+/l4+dXWj76qG+p/
-rfH4ad4zCvPr7tbPFVLz3O7cn5MTL642brm1umvx7x03WopidWM4vGnP5X/uDSTR
-1PO1l8bOHmv8cPiX5Y03X5gZ/rJt4NzciT9mRXCm9ZVDJ9uuiW/63LEdTaWlgxfu
-79+3dbHt21N3ty++/UTH0Zl7fQ0/7v3gh3j4UO37sd9aR8ZXbr1+5fqenZPT/wKu
-X19/
-=U8gV
+owGtkntQVFUcx5cFFmEisbCHINIlCXNnue/Hmv4Bk4aPBtIgrFzOvffs7pX13mXv
+sivhDhlaYaj4YhheITEVMNhYjkpGDycpB2bERy+aZDQZctahlcfa8JDuZfS//uz8
+c875/T6/7/n+fnNq4iMNxojt2RvjsX8WdET03eYN+YWhlHKEV8QyxFqOFMP5DbpE
+qHptxZKIWBEUQzGKIQFJoRQm2HmOp1CaZgAKKIoUOBEHFEuwNMHROMXiQGRRisEp
+EdAcS/EYZ4csjqMAMSN2SXZAj9sjyV5NVsQxaEdRitIwUgC0KLCQ0M40IAlSQEUC
+s7MoC/RCp6LqFZo5HqjQIilaTLvY5u39B/8/+y6dlwM4iuIYx3AUxjAMSgg85Ak7
+J3CAQzkW43RQhR4Z7IB6d1CWVMEJvFAGZUjAjGgpnyRAfbp6Ow8w3qU4LA8xixYy
+I26P4lUExaVlnV6vW7Xq1d4yt477IW97IGTjJVnUBqpV+KBHlRQZsWIaKXglXRkj
+SZYhSIakzQjc6ZY80CbpBMXQLKot/R3oQ3grIuC0gBMYQEmRpgBDkSJOEzQKoEhD
+IGKsndSGiHEiJDGaFCkBpe04IdghyqMoR0MB0XsrkRVNHNOMAofmU5UcMvCWeiAS
+iKsyJkcZIowGU7RR/2uGuNiEhx/wDXzh7KL60Olx+KbZ8sH6mdBd8+Se2ZfTcGXf
+i2feVhuS7ptuQ2sPUfrCjr3JmUd6s24kf4XUHvycC0ZH/awWxSVNVPqSt5zLMD63
+OvdGX3HJmYJXUueeraAGmtL7V7lU6k5Rd1Zl+IfC9jvltoqZ5qvbhZG86FOmYCg8
+bFYa/44jLsWffmIqiqvGhXtXXopx5G8sf21Z12Dq3Bc5oOJqZ8vJ0ZEllasykQOP
+DRRU3nQ1jFtSZg2fZfymFF0hlk9Mj7adOFQafN6p1G6ajPUkNhFpHaO+NU2HzreR
+xNe1BcuHbRHjvpwyf8eGv6Lcx3rPgsKeTmPk7yOtZu/jS9n0axOpf+K+3T9+4g0f
+fL8mXJ/VGXMv/sMsY+6t6aEvn1k5le1Y7eHbAzsXrIkcO2x6z9K8gVp701TnSu4Z
+CrXUE/3E7pLp5t62zKKwtbYmPQCrl81wrWkB7I/8sYTEW/f9Pd8ev9A9JDdS6/qX
+DH/XPLl4y6cn1KAj76jQPh4jJ27+pXzpq+f7391nOt6w19lSfy6pNuNocfVH7nXX
+Xh9svb5ra+DjqpxtXa6qgfgVHYtWchFPbjviX3v3gi3RqKZ1v9U1Vrc/4WLRoHMq
+ts7fGL7+1MlcetfivLnLKRWPuBfKKZdOPZ0wu//AO318Quin7OCv3NYens5rPrvi
+m4vfl/k3Bx89tv7ynlB+yb8=
+=Tnzu
 -----END PGP MESSAGE-----
 
 And finally, I am proving ownership of this host by posting or
@@ -73,3 +71,4 @@ appending to this document.
 View my publicly-auditable identity here: https://keybase.io/denischatenay
 
 ==================================================================
+
