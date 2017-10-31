@@ -4,11 +4,10 @@ title: About
 permalink: /about/
 ---
 
-I currently work as system engineer at ITG RFQ-hub, small financial software company from Paris, recently acquired by ITG.
+I currently work as system and network administrator at S3 Technologies, largest MSP Serving Greater
+Montreal & Toronto areas.
 
-**And I am looking a for a job at Montreal (Canada)**
-
-My resume is available in a [PDF file](https://blog.chatenay.me/cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
+My resume is available in a [PDF file](http://blog.chatenay.me/cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
 
 ### More Information
 
