@@ -7,7 +7,7 @@ permalink: /about/
 I currently work as system and network administrator at S3 Technologies, largest MSP Serving Greater
 Montreal & Toronto areas.
 
-My resume is available in a [PDF file](http://blog.chatenay.me/cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
+My resume is available in a [PDF file](cv/Resume_Denis_CHATENAY.pdf) or on [linkedin](https://www.linkedin.com/in/denischatenay).
 
 ### More Information
 
