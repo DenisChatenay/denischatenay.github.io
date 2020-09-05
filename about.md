@@ -4,8 +4,7 @@ title: About
 permalink: /about/
 ---
 
-I currently work as system and network administrator at S3 Technologies, largest MSP Serving Greater
-Montreal & Toronto areas.
+I currently work as a team lead system and network administrator at Beyond Technologies.
 
 My resume is available on [linkedin](https://www.linkedin.com/in/denischatenay).
 
